@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+coverage/
+.DS_Store
+*.log
+.claude/
+MediQueue/
+data/
+public/
+test/
+dir/
+New Text Document.txt
