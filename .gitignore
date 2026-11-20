@@ -10,6 +10,7 @@ coverage/
 MediQueue/
 data/
 public/
+!/Front end/public/
 test/
 dir/
 New Text Document.txt

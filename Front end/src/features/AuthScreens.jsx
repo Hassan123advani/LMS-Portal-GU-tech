@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowRight, Compass, Eye, EyeOff } from 'lucide-react';
+import { ArrowRight, BookOpen, CalendarDays, Compass, Eye, EyeOff, GraduationCap } from 'lucide-react';
 import { changePassword, login, registerAccount, requestPasswordReset, resetPassword } from '../lib/api.js';
 import { brand } from '../brand.js';
+import { BrandMark } from '../components/ui.jsx';
 
 const passwordRule = 'Use at least 10 characters, including one letter and one number.';
 const meetsPolicy = (value) => value.length >= 10 && /[A-Za-z]/.test(value) && /[0-9]/.test(value);
@@ -16,7 +17,7 @@ export function AuthScreen({ onAuthenticated }) {
 }
 
 function AuthFrame({ kicker, title, description, children }) {
-  return <main className="auth-screen"><div className="auth-art"><div className="auth-brand"><span className="brand-mark"><Compass size={22} /></span><span>{brand.wordmark}<span className="brand-period">.</span></span></div><div className="auth-orbit orbit-one"/><div className="auth-orbit orbit-two"/><div className="auth-orbit orbit-three"/><div className="auth-core"><Compass size={39}/></div><div className="auth-art-copy"><span>{brand.tagline.toUpperCase()}</span><h1>{brand.authHeadline[0]}<br/>{brand.authHeadline[1]}</h1><p>A little curiosity can change everything.</p></div></div><div className="auth-form-wrap"><section className="auth-form"><span className="eyebrow"><span className="eyebrow-line"/> {kicker}</span><h2>{title}</h2><p>{description}</p>{children}</section></div></main>;
+  return <main className="auth-screen"><div className="auth-art"><div className="auth-brand"><BrandMark className="brand-mark" /><span>{brand.wordmark}<span className="brand-period">.</span></span></div><div className="auth-orbit orbit-one"/><div className="auth-orbit orbit-two"/><div className="auth-orbit orbit-three"/><div className="auth-core"><Compass size={39}/></div><div className="auth-art-copy"><span>{brand.tagline.toUpperCase()}</span><h1>{brand.authHeadline[0]}<br/>{brand.authHeadline[1]}</h1><p>A little curiosity can change everything.</p><ul className="auth-features"><li><BookOpen size={16} /> Courses, lessons and resources in one place</li><li><CalendarDays size={16} /> Assignments and deadlines you can’t miss</li><li><GraduationCap size={16} /> Quizzes, marks and feedback as they happen</li></ul></div></div><div className="auth-form-wrap"><section className="auth-form auth-card"><span className="eyebrow"><span className="eyebrow-line"/> {kicker}</span><h2>{title}</h2><p>{description}</p>{children}</section></div></main>;
 }
 
 function PasswordField({ label, value, onChange, autoComplete, minLength }) {

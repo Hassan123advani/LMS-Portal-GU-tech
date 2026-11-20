@@ -3,11 +3,23 @@ import { BookOpen, X } from 'lucide-react';
 import { brand } from '../brand.js';
 
 export function EmptyState({ title, body, icon: Icon = BookOpen, children }) {
-  return <div className="empty-state"><span><Icon size={19} /></span><b>{title}</b><p>{body}</p>{children}</div>;
+  return <div className="empty-state"><span className="empty-state-icon"><Icon size={22} /></span><b>{title}</b><p>{body}</p>{children}</div>;
+}
+
+export function BrandMark({ className = '', size = 38 }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+    <defs><linearGradient id="gu-mark-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#17305a" /><stop offset="1" stopColor="#0b1730" /></linearGradient></defs>
+    <rect width="64" height="64" rx="16" fill="url(#gu-mark-bg)" />
+    <path d="M40.5 22.5A13 13 0 1 0 45 32H33" fill="none" stroke="#fff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="47.5" cy="16.5" r="4.5" fill="#14b8a6" />
+  </svg>;
 }
 
 export function LoadingState({ label = 'Loading…' }) {
-  return <div className="panel muted-state" role="status"><span className="spinner" aria-hidden="true" />{label}</div>;
+  return <div className="panel muted-state loading-state" role="status" aria-live="polite">
+    <div className="loading-label"><span className="spinner" aria-hidden="true" />{label}</div>
+    <div className="skeleton-lines" aria-hidden="true"><span className="skeleton" /><span className="skeleton" /><span className="skeleton skeleton-short" /></div>
+  </div>;
 }
 
 export function ErrorNotice({ error, onRetry }) {
@@ -25,6 +37,11 @@ export function Modal({ title, kicker = brand.name.toUpperCase(), onClose, child
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
+  useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, []);
   return <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <section className={`modal-card ${wide ? 'modal-wide' : ''}`} role="dialog" aria-modal="true" aria-label={title}>
       <div className="modal-heading"><div><span className="section-overline">{kicker}</span><h2>{title}</h2></div><button type="button" onClick={onClose} aria-label="Close dialog"><X size={18} /></button></div>

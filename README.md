@@ -46,3 +46,24 @@ For local Supabase development, install the CLI, then run `npm run db:start` and
 - Audit records, role middleware, pagination, rate limits, private storage, and row level security policies.
 
 Before production, configure HTTPS, Supabase Auth email delivery and redirect URLs, trusted frontend origins, backups, and monitoring. Never commit `.env` files or expose the service role key in the browser.
+
+## UI / Design
+
+The web app (`Front end/`) uses a small, token-based design system defined at the top of `src/styles.css`.
+
+- **Typography:** Inter for body text and Plus Jakarta Sans for headings, loaded from Google Fonts. Body text is 14px or larger and labels are 12px or larger.
+- **Colour:** a deep navy brand (`#0b1730` / `#10213f` / `#17305a`), a teal accent (`#14b8a6` / `#0d9488`) and an indigo secondary colour (`#6366f1`) on a `#f4f6fb` page background. Success, warning, danger and info tokens drive alerts and status pills.
+- **Tokens:** a spacing scale (`--s-1` to `--s-10`), radius tokens (8 / 12 / 16px, and 14px for cards) and layered shadows (`--shadow-sm` / `--shadow-md` / `--shadow-lg`).
+- **Components:** primary (navy gradient), secondary/outline, quiet and danger buttons at 40px height; 42px inputs with a teal focus ring and error states; status pills with one colour per status (draft, published, submitted, graded, overdue, due soon, pending, resolved, rejected and others); skeleton loading, empty and error states.
+- **Motion:** page fade-in, modal scale-in and toast slide-in. All motion is turned off when the user sets `prefers-reduced-motion`.
+
+### Responsive behaviour
+
+| Width | Layout |
+| --- | --- |
+| ≥ 1440px | Content width is capped at 1320px and centred. |
+| 1025–1439px | Full dark-navy sidebar. A topbar button collapses it to an icon-only rail (78px) with tooltips, and the choice is saved in `localStorage`. |
+| 701–1024px | Tablet grid: two-column metrics, single-column dashboard panels, course cards that reflow, and a schedule week that scrolls sideways. |
+| ≤ 700px | Off-canvas sidebar (Escape closes it and page scroll is locked while it is open), a fixed bottom navigation bar (Overview, Courses, Assignments, Schedule, Profile) with safe-area padding, touch targets of at least 44px, bottom-sheet modals, and tables that turn into stacked cards or scroll sideways. |
+
+Print styles hide the sidebar, topbar and bottom navigation. The favicon and brand mark live in `public/favicon.svg` and the `BrandMark` component in `src/components/ui.jsx`.
